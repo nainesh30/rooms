@@ -6,6 +6,9 @@ background-color: #dadbd3;
 overflow: hidden;
 
 }
+#root{
+    overflow:hidden;
+}
 .App a {
     text-decoration: none;
     
