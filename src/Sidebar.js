@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import {  Search } from '@mui/icons-material';
 import SidebarChat from './Component/SidebarChat';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -59,7 +59,13 @@ useEffect(() => {
     return (
         <div className='sidebar'>
             <div className="sidebar-header">
-                <Avatar tooltip="ds" onClick={()=> auth.signOut()} src={user.photoURL} />
+
+                <Tooltip title="Log Out">
+  <IconButton>
+  <Avatar  onClick={()=> auth.signOut()} src={user.photoURL} />
+
+  </IconButton>
+</Tooltip>
                 <div className="sidebar-header-right" >
                     {/* icon button provide some good animation */}
                     <IconButton>

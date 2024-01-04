@@ -1,5 +1,5 @@
 import { LoginOutlined } from '@mui/icons-material'
-
+import './Login.css'
 import React from 'react'
 import {auth,provider} from '../db'
 import {  signInWithPopup,} from "firebase/auth";
@@ -10,9 +10,16 @@ const Login = () => {
   });
  }   
   return (
-   <button onClick={sign}>
-    <LoginOutlined/>
-   </button>
+  <div className="login"> 
+   
+  <div className="container" onClick={sign}>
+    <h4>Login With Google</h4>
+     <LoginOutlined/>
+    
+    </div> 
+
+  </div>
+
   )
 }
 
