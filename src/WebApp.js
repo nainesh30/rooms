@@ -8,12 +8,13 @@ import {
 } from "react-router-dom"
 import { BrowserRouter } from 'react-router-dom';
 import Login  from './Component/Login';
-import{auth} from './db'
 import {useAuthState} from 'react-firebase-hooks/auth'
+import  { auth } from './db';
 import { CircularProgress } from '@mui/material';
 const WebApp = () => {
   const [user,loading] = useAuthState(auth)
 
+  
   return (
  
         <div className="App">

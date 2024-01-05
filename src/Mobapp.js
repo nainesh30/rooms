@@ -9,11 +9,14 @@ import {
   Route,
 } from "react-router-dom"
 import { BrowserRouter } from 'react-router-dom';
-import{auth} from './db'
 import {useAuthState} from 'react-firebase-hooks/auth'
+import  { auth } from './db';
 import { CircularProgress } from '@mui/material';
+
 const Mobapp = () => {
   const [user,loading] = useAuthState(auth)
+
+  
   return (
  
     <div className="App">
