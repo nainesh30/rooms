@@ -52,6 +52,7 @@ display: none;
     align-items: flex-start !important;
     /* justify-content: none !important; */
     flex: 0.1;
+    position: sticky;
     }
     .chat-head-left-info p {
        
