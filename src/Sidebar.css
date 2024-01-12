@@ -3,8 +3,9 @@ height: 100%;
 /* background-color: pink; */
 min-width: 20vw;
 border-right: 1px solid lightgray;
-
-
+display: flex;
+flex-direction: column  ;
+/* overflow:auto; */
 
 }
 
@@ -63,16 +64,20 @@ box-shadow: 1px 3px 5px 1px rgba(0,0,0,0.1);
 
     
 }
+.button-container{
+    display: flex;
+    gap: 1px;
+}
 .siderbar-chat:hover{
     background-color: #ededed;
 }
 .sidebar-chat-section{
     height: 100%;
     width: 100%;
-    /* scroll-margin-bottom: 10px; */
+    scroll-margin-bottom: 10px;
     padding-bottom: 56px;
-
-overflow: scroll;
+overflow: auto;
+overflow-x: hidden;
 }
 
 .sidebar-chat-info{

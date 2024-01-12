@@ -29,7 +29,7 @@ const WebApp = () => {
          ): (<BrowserRouter>
            <Sidebar/>
          <Routes>
-         <Route path='rooms/:id' element = {<ChatRoom/>}/>  
+         <Route path=':type/:id' element = {<ChatRoom/>}/>  
          
          </Routes>
          </BrowserRouter>

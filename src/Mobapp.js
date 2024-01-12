@@ -30,7 +30,7 @@ const Mobapp = () => {
     <BrowserRouter>
     <Routes>
     <Route path='/' element = {<Sidebar/>}/>  
-    <Route path='rooms/:id' element = {<ChatRoom/>}/>  
+    <Route path=':type/:id' element = {<ChatRoom/>}/>  
     </Routes>
     </BrowserRouter>
     )}

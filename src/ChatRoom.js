@@ -8,21 +8,23 @@ import { collection, onSnapshot ,addDoc, doc, getDoc, orderBy, query, serverTime
 import db ,{auth}from './db';
 import Chat from './Component/Chat';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Oppname from './utils/Oppname';
+import InvalidPage from './Component/InvalidPage';
 
 const ChatRoom = () => {
 const [user] = useAuthState(auth);
 const bodys = useRef()
 const [LastSeen, setLastSeen] = useState("")
-let {id} = useParams() //Fetching room id from url
+let {id,type} = useParams() //Fetching room id from url
 const [messages, setmessages] = useState([])
 const [input, setinput] = useState("")
 const [Roomname, setRoomname] = useState("")
-
+const [valid,setValid] = useState(true)
 
 const createchat = (e)=>{
   e.preventDefault()
   if(input){
-    addDoc(collection(db,"rooms",`${id}`,"chats"), {
+    addDoc(collection(db,`${type}`,`${id}`,"chats"), {
       name: user.displayName,
       userId : user.uid,
       message:input,
@@ -37,30 +39,53 @@ else{
 
 }
 useEffect(() => {
-  const targetpostion = bodys.current.scrollHeight
-  bodys.current.scrollTo({top: targetpostion , behavior: 'smooth'}) 
+  const targetpostion = bodys.current?.scrollHeight
+  bodys.current?.scrollTo({top: targetpostion , behavior: 'smooth'}) 
 
   
 }, [messages])
 
 useEffect(() => {
+const checkUser = (data)=>{
+    //check whether current user in array
+    return !! data.users.find(e=> e===user.email)
+   }
   setmessages([])
   const fetchroomName = async ()=>{
-    const docRef = doc(db, "rooms", `${id}`);
+    const docRef = doc(db, `${type}`, `${id}`);
     const docSnap = await getDoc(docRef);
-    setRoomname(docSnap.data().name)
+    try {
+      if (type==="rooms" && docSnap?.data()) {
+        setRoomname(docSnap.data().name)
+        setValid(true)
 
+      }
+      else if(docSnap?.data()){
+        setRoomname(Oppname(docSnap.data().users,user.email))
+        setValid(true)
+        if(!checkUser(docSnap?.data())){
+          setValid(false)
+        }
+      }
+      else{
+        setValid(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+   
   }
+
 fetchroomName() // const chatColl = collection(db,"rooms","9ThS9IBCE6cyhrPAhphd","chats")
-    onSnapshot(query(collection(db, "rooms",id,"chats"),orderBy('timestamp','asc')), (querySnapshot) => {
+    onSnapshot(query(collection(db, `${type}`,id,"chats"),orderBy('timestamp','asc')), (querySnapshot) => {
      setLastSeen(querySnapshot.docs[querySnapshot.docs.length-1]?.data().timestamp?.toDate().toUTCString());
       setmessages(querySnapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data()
       })))
   });
-}, [id])
-
+}, [id,type,user])
+if(!valid) return <InvalidPage/>
   return (
     <div className='ChatRoom' >
       <div className="chat-head">
