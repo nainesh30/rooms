@@ -11,7 +11,8 @@ const [Lastmessage, setLastmessage] = useState("")
      if(!data){
       setLastmessage("Tap to Start Chatting")
      }else{
-      setLastmessage(data.data().message)
+      // setLastmessage(data.data().message)
+      setLastmessage(`${data.data().name} : ${data.data().message}`)
 
      }
     })

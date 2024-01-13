@@ -6,12 +6,12 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 const SidebarPrivate = ({name,id}) => {
 const [Lastmessage, setLastmessage] = useState("")
   useEffect(() => {
-    onSnapshot(query(collection(db,"rooms",`${id}`,"chats"),orderBy('timestamp', 'desc')),(querysnapshot)=>{
+    onSnapshot(query(collection(db,"privateChats",`${id}`,"chats"),orderBy('timestamp', 'desc')),(querysnapshot)=>{
      const  data = querysnapshot.docs[0];
      if(!data){
       setLastmessage("Tap to Start Chatting")
      }else{
-      setLastmessage(data.data().message)
+      setLastmessage(`${data.data().name}:${data.data().message}`)
 
      }
     })
